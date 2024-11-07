@@ -159,25 +159,8 @@ return [
         'password'=>'パスワード',
         'new-password'=>'新しいパスワード',
         'password-confirmation'=>'パスワード確認',
-        'event_name' => 'イベント名',
-        'information' => 'イベント詳細',
-        'start_date' =>'走行日',
-        'start_time' => '開始時間',
-        'cir_id' =>'サーキット',
-        'kart_id' => 'カート',
-        'tire_id' => 'タイヤ',
-        'engine_id' => 'エンジン',
-        'laps'=>'Lap数',
-        'upper_of_time'=>'タイム（秒）',
-        'bottom_of_time'=>'タイム（秒以下）',
-        'purchase_date' => '購入日',
-        'maker_id' => 'メイクス',
-        'model_year' => 'Model_Year',
-        'maint_date' => '実施日',
-        'eg_maint_category_id' =>'メンテナンスカテゴリー',
-        'eg_maint_info' => 'メンテナンス内容',
-        'ch_maint_category_id' =>'メンテナンスカテゴリー',
-        'maint_info' => 'メンテナンス内容',
-        'dry/wet' => '路面',
+        'title' => '件名',
+        'content' => '本文'
+
     ]
 ];
