@@ -5,17 +5,21 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\InertiaTestController;
+use App\Http\Controllers\ItemController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Route::get('/inertia/index', [ItemController::class, 'index2'])
+//                 ->name('items.index2');
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+//     Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+//     Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+//     });
+
+Route::resource('items', ItemController::class)
+->middleware(['auth', 'verified']);
+
+
 
 Route::get('/inertia-test', function () {
     return Inertia::render('InertiaTest');
