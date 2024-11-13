@@ -12,12 +12,6 @@ defineProps({
 
     <AuthenticatedLayout>
         <template #header>
-            <div v-if="$page.props.flash.message && $page.props.flash.status == 'alert'" class="bg-red-400">
-                {{ $page.props.flash.message }}
-            </div>
-            <div v-if="$page.props.flash.message && $page.props.flash.status == 'info'" class="bg-blue-400">
-                {{ $page.props.flash.message }}
-            </div>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">商品一覧</h2>
         </template>
 

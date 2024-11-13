@@ -160,7 +160,10 @@ return [
         'new-password'=>'新しいパスワード',
         'password-confirmation'=>'パスワード確認',
         'title' => '件名',
-        'content' => '本文'
+        'content' => '本文',
+        's_name' => '商品名',
+        'memo' => '詳細',
+        'price' => '価格',
 
     ]
 ];

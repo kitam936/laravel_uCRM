@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\Message;
 use Inertia\Inertia;
+
 
 class ItemController extends Controller
 {
@@ -14,7 +17,18 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return  inertia::render('Items/Index');
+        // dd(Item::select('id', 'name', 'price', 'is_selling')->get());
+        return Inertia::render('Items/Index', [
+            'items' => Item::select('id', 'name', 'price', 'is_selling')->get()
+            ]);
+    }
+
+    public function index2()
+    {
+        // dd(Item::select('id', 'name', 'price', 'is_selling')->get());
+        return Inertia::render('Items/Index', [
+            'items' => Item::select('id', 'name', 'price', 'is_selling')->get()
+            ]);
     }
 
     /**
@@ -22,7 +36,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Items/Create');
     }
 
     /**
@@ -30,7 +44,20 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        //
+        Item::create([
+            'name' => $request->s_name,
+            'memo' => $request->memo,
+            'price' => $request->price,
+        ]);
+
+
+        // return Inertia::location(route('items.index'))
+        return to_route('items.index')
+        ->with([
+            'message' => '登録しました',
+            'status' => 'info'])
+        ;
+
     }
 
     /**
