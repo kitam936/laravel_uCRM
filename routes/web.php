@@ -6,20 +6,19 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\InertiaTestController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PurchaseController;
 
-// Route::get('/inertia/index', [ItemController::class, 'index2'])
-//                 ->name('items.index2');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/items', [ItemController::class, 'index'])->name('items.index');
-//     Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
-//     Route::post('/items', [ItemController::class, 'store'])->name('items.store');
-//     });
 
 Route::resource('items', ItemController::class)
 ->middleware(['auth', 'verified']);
 
+Route::resource('customers', CustomerController::class)
+->middleware(['auth', 'verified']);
 
+Route::resource('purchases', PurchaseController::class)
+->middleware(['auth', 'verified']);
 
 Route::get('/inertia-test', function () {
     return Inertia::render('InertiaTest');
