@@ -4,6 +4,7 @@ import { Head ,Link} from '@inertiajs/vue3';
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/vue3'
+// import { Link } from '@inertiajs/inertia-vue3';
 
 
 const props = defineProps({

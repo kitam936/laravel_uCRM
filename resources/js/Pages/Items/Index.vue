@@ -2,6 +2,7 @@
 import FlashMessage from '@/Components/FlashMessage.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head ,Link} from '@inertiajs/vue3';
+// import { Link } from '@inertiajs/inertia-vue3';
 
 
 defineProps({
