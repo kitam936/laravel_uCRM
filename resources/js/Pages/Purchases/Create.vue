@@ -56,6 +56,11 @@ const storePuchase = ()=>{
     Inertia.post(route('purchases.store'),form)
 }
 
+const setCustomerId = id => {
+    form.customer_id = id
+
+}
+
 </script>
 
 <template>
@@ -78,21 +83,21 @@ const storePuchase = ()=>{
                                 <div class="flex flex-wrap -m-2">
                                     <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="date" class="leading-7 text-sm text-gray-600">Date</label>
-                                        <input type="date" id="date" name="date" v-model="form.date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <label for="date" class="mr-4 leading-7 text-sm text-gray-600">Date</label>
+                                        <input type="date" id="date" name="date" v-model="form.date" class="w-80 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         <!-- <div v-if="errors.date" class="text-red-500">{{ errors.date }}</div> -->
                                     </div>
                                     </div>
                                     <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <MicroModal/>
-                                        <label for="customer" class="leading-7 text-sm text-gray-600">Name</label>
-                                        <select name="customer" v-model="form.customer_id" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <div class="relative flex">
+                                        <label for="customer" class="mr-2 leading-7 text-sm text-gray-600">Name</label>
+                                        <MicroModal @update:customerId="setCustomerId"/>
+                                        <!-- <select name="customer" v-model="form.customer_id" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             <option v-for="customer in customers" :value="customer.id" :key="customer.id">
                                                 {{ customer.id }} : {{ customer.name }}
                                             </option>
                                         </select>
-                                        <div v-if="props.errors.customer" class="text-red-500">{{ errors.customer }}</div>
+                                        <div v-if="props.errors.customer" class="text-red-500">{{ errors.customer }}</div> -->
                                     </div>
                                     </div>
 
@@ -126,7 +131,7 @@ const storePuchase = ()=>{
 
                                     </div>
                                     <div class="p-2 w-full">
-                                    <div class="relative">
+                                    <div class="">
                                         <label for="total" class="leading-7 text-sm text-gray-600">Total</label>
                                         <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ totalPrice }}円</div>
                                         <!-- <div v-if="errors.price" class="text-red-500">{{ errors.price }}</div> -->

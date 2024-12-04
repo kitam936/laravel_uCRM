@@ -49,9 +49,8 @@ Inertia.get(route('customers.index', { search: search.value }))
                         </div>
                             <Link as="button" :href="route('customers.create')" class="w-32 h-8 bg-indigo-500 text-sm text-white ml-0 hover:bg-indigo-600 rounded">顧客登録</Link>
                         </div>
+
                         <div class=" mx-auto w-2/3 sm:px-4 lg:px-4 border ">
-
-
                         <table class="bg-white table-auto w-full text-center whitespace-no-wrap">
                             <thead>
                                 <tr>

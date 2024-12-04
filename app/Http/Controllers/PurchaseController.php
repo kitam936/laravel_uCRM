@@ -51,7 +51,11 @@ class PurchaseController extends Controller
                 ]);
             }
             DB::commit();
-            return to_route('dashboard');
+            return to_route('dashboard')
+            ->with([
+                'message' => '購入が完了しました。',
+                'status' => 'info'
+            ]);
 
         }catch(\Exception $e){
             DB::rollBack();
