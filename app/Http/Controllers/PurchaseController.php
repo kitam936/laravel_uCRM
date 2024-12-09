@@ -5,19 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Customer;
 use App\Models\Item;
 use Inertia\Inertia;
+use App\Models\Order;
 
 class PurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // dd(Order::paginate(50));
+        $customers = Purchase::searchPurchases($request->search)
+        ->paginate(50)
+        ->withQueryString();
+
+        $orders = Order::groupBy('id')
+        ->selectRaw('id, sum(subtotal) as total,
+        customer_name, status, created_at')
+        ->paginate(50)
+        ->withQueryString();
+
+        // dd($orders,$customers);
+        return Inertia::render('Purchases/Index',[
+            'orders' => $orders,
+            'customers' => $customers
+        ]);
     }
 
     /**
@@ -68,7 +85,18 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        //
+        $items = Order::where('id',$purchase->id)->get();
+
+        $order = Order::groupBy('id')
+        ->where('id',$purchase->id)
+        ->selectRaw('id, sum(subtotal) as total,
+        customer_name, status, created_at')->get();
+
+        // dd($items, $order);
+        return Inertia::render('Purchases/Show',[
+            'items' => $items,
+            'order' => $order
+        ]);
     }
 
     /**

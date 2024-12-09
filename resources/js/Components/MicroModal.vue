@@ -33,7 +33,7 @@
 
     const setCustomer = e => {
         search.value = e.kana
-        emit('update:customerId',e.id)
+        emit('update:customerId',e.id,e.name)
         toggleStatus()
     }
 
@@ -66,7 +66,7 @@
                     <tbody>
                         <tr v-for="customer in customers.value.data" :key="customer.id">
                             <td class="border-b-2 boder-gray-200">
-                                <button type="button" @click="setCustomer({ id:customer.id, kana:customer.kana})" class="text-indigo-500" >
+                                <button type="button" @click="setCustomer({ id:customer.id, kana:customer.kana, name:customer.name})" class="text-indigo-500" >
                                     {{ customer.id }}
                                 </button>
                             </td>
@@ -88,7 +88,7 @@
   </div>
   <div class="flex">
   <div>
-  <input name="customer" v-model="search" class="w-80 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+  <input name="customer" v-model="search" class="w-60 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
   </div>
   <div class="ml-2">
     <button type="button" class="flex mx-auto text-white bg-teal-500 border-0 py-2 px-8 focus:outline-none hover:bg-teal-600 rounded text-lg" @click="searchCustomers" data-micromodal-trigger="modal-1" >検索する</button>
