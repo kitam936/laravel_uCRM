@@ -27,20 +27,7 @@ class Purchase extends Model
         return $this->belongsToMany(Item::class)->withPivot('quantity');
     }
 
-    public function scopeSearchPurchases($query, $input = null)
-        {
 
-            $customers = Purchase::join('customers', 'purchases.customer_id', '=', 'customers.id');
-
-            if(!empty($input)){
-                if($customers->where('kana', 'like', '%'.$input . '%' )
-                ->orWhere('tel', 'like', $input . '%')->exists())
-                {
-                return $query->where('kana', 'like', '%'.$input . '%' )
-                ->orWhere('tel', 'like', $input . '%');
-                }
-            }
-        }
 
 
 }
