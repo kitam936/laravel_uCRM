@@ -6,25 +6,30 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use App\Services\AnalysisService;
+use Illuminate\Http\Response;
 
 class AnalysisController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $startDate = '2022-08-01';
         $endDate = '2022-08-31';
-        $subQuery = Order::betweenDate($startDate,$endDate)
-        ->where('status',true)
+
+        $subQuery = Order::betweenDate($startDate, $endDate)
         ->groupBy('id')
-        ->selectRaw('id,sum(subtotal) as totalPerPurchase,
-        DATE_FORMAT(created_at, "%Y%m%d") as date');
+        ->selectRaw('id, customer_id, customer_name, SUM(subtotal) as
+        totalPerPurchase');
 
-        $data = DB::table($subQuery)
-        ->groupBy('date')
-        ->selectRaw('date, sum(totalPerPurchase) as total')->get();
-
-        // dd($data);
+        $subQuery = DB::table($subQuery)
+        ->groupBy('customer_id')
+        ->selectRaw('customer_id, sum(totalPerPurchase)
+        as total')
+        ->orderBy('total', 'desc')->get();
+        // dd($subQuery);
 
         return Inertia::render('Analysis');
+
+
     }
 }

@@ -28,12 +28,18 @@ const getData = async() =>{
                 startDate:form.startDate,
                 endDate:form.endDate,
                 type:form.type
+
             }
         })
         .then(res => {
             data.data = res.data.data
-            data.labels = res.data.labels
-            data.totals = res.data.totals
+            // data.labels = res.data.labels
+            if (res.data.labels) { data.labels = res.data.labels }
+            if (res.data.eachCount) { data.eachCount = res.data.eachCount }
+            data.totals = res.data.totals;
+            data.previousTotals = res.data.previousTotals; // 前年同月データを追加
+            data.type = res.data.type;
+
             console.log(res.data)
     })
     }catch(e){
@@ -56,6 +62,10 @@ const getData = async() =>{
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <form @submit.prevent="getData">
+                            分析方法<br>
+                            <input type="radio" v-model="form.type" value="perDay" checked><span class="mr-2">日別</span>
+                            <input type="radio" v-model="form.type" value="perMonth" ><span class="mr-2">月別</span>
+                            <input type="radio" v-model="form.type" value="perYear" ><span class="mr-2">年別</span><br>
                             From:<input type="date" name="startDate" v-model="form.startDate">
                             To:<input type="date" name="endDate" v-model="form.endDate"><br>
                             <button class="mt-4 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">分析</button>
@@ -69,12 +79,15 @@ const getData = async() =>{
                                 <tr>
                                     <th class="w-1/13 md:1/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">年月日</th>
                                     <th class="w-1/13 md:1/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">金額</th>
+                                    <th class="w-1/13 md:1/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">前年金額</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in data.data" :key="item.date">
-                                    <td class="border-b-2 boder-gray-200">{{ item.date }} </td>
-                                    <td class="border-b-2 boder-gray-200">{{ item.total }} </td>
+                                    <td class="border-b-2 boder-gray-200"><span style="font-variant-numeric:tabular-nums">{{ item.date }} </span></td>
+                                    <td class="border-b-2 boder-gray-200 text-right pr-10"><span style="font-variant-numeric:tabular-nums"> {{ item.total}}</span> </td>
+                                    <td class="border-b-2 boder-gray-200 text-right pr-10"><span style="font-variant-numeric:tabular-nums"> {{ item.previousTotals}}</span> </td>
+                                    <!-- <span style="font-variant-numeric:tabular-nums"> {{ number_format(round(item.total/1000))}}</span> -->
                                 </tr>
                             </tbody>
                         </table>
