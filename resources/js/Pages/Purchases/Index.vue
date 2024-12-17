@@ -9,17 +9,19 @@ import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
     orders:Object,
-    customers:Object,
+    search_orders:Object,
+    // customers:Object,
 })
 
 onMounted(() => {
     console.log(props.orders.data)
-    console.log(props.customers.data)
+    console.log(props.search_orders.data)
+    // console.log(props.customers.data)
 })
 
 const search = ref('')
 // ref の値を取得するには .valueが必要
-const searchPurchases = () => {
+const searchOrders = () => {
 Inertia.get(route('purchases.index', { search: search.value }))
 }
 
@@ -49,7 +51,7 @@ Inertia.get(route('purchases.index', { search: search.value }))
                     <div class="h-8 mr-12">
                         <input class="h-8 rounded" type="text" name="search" v-model="search">
                         <button class="bg-blue-300 text-white px-2 h-8 rounded "
-                        @click="searchPurchases">検索</button>
+                        @click="searchOrders">検索</button>
                     </div>
                     </div>
 
@@ -59,6 +61,8 @@ Inertia.get(route('purchases.index', { search: search.value }))
                             <tr>
                                 <th class="w-1/13 md:1/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">id</th>
                                 <th class="w-1/13 md:1/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">name</th>
+                                <th class="w-1/13 md:1/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">ｶﾅ</th>
+                                <th class="w-1/13 md:1/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Tel</th>
                                 <th class="w-3/13 md:3/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Total</th>
                                 <th class="w-3/13 md:3/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">status</th>
                                 <th class="w-3/13 md:3/13 md:px-4 py-1 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Date</th>
@@ -66,20 +70,22 @@ Inertia.get(route('purchases.index', { search: search.value }))
                         </thead>
 
                         <tbody>
-                            <tr v-for="order in props.orders.data" :key="order.id">
+                            <tr v-for="order in props.search_orders.data" :key="order.id">
                                 <td class="border-b-2 boder-gray-200">
                                     <Link class="text-indigo-500" :href="route('purchases.show',{purchase:order.id})">{{ order.id }} </Link>
                                 </td>
                                 <td class="border-b-2 boder-gray-200">{{ order.customer_name }} </td>
+                                <td class="border-b-2 boder-gray-200">{{ order.kana }} </td>
+                                <td class="border-b-2 boder-gray-200">{{ order.tel }} </td>
                                 <td class="border-b-2 boder-gray-200">{{ order.total}} </td>
                                 <td class="border-b-2 boder-gray-200">{{ order.status }} </td>
-                                <td class="border-b-2 boder-gray-200">{{ dayjs(order.created_at).format('YYYY-MM-DD HH:mm:ss') }}</td>
+                                <td class="border-b-2 boder-gray-200">{{ dayjs(order.created_at).format('YYYY-MM-DD') }}</td>
                             </tr>
                         </tbody>
                     </table>
 
                     </div>
-                    <Pagination ation class="ml-48 mt-6" :links="props.orders.links"></Pagination>
+                    <Pagination ation class="ml-48 mt-6" :links="props.search_orders.links"></Pagination>
                 </div>
 
             </div>
